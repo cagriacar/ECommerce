@@ -1,0 +1,35 @@
+﻿
+@model IEnumerable<ETicaret.WebUI.Models.FeatureType>
+
+<div class="form-group ">
+    <label for="ccomment" class="control-label col-lg-2">Özellik Tipi</label>
+    <div class="col-lg-10">
+        <select id="types" name="FeatureTypeId" class="form-control m-bot15">
+            @foreach (var type in Model)
+            {
+                <option value="@type.Id">@type.Adi</option>
+            }
+        </select>
+    </div>
+</div>
+
+    <script>
+        $(document).ready(function myfunction() {
+            $("#types").change(function myfunction() {
+                var id = $(this).val()
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/ProductFeatureValueWidget",
+                    data: { typeId: id },
+                    success: function myfunction(data) {
+                        $("#value").html('')
+                        $("#value").append(data)
+                    },
+                    error: function myfunction() {
+                        alert("error")
+                    }
+                })
+            })
+        })
+    </script>

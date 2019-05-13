@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Ürün Ekleme";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@section head{
+    <link rel="stylesheet" type="text/css" href="/Content/Admin/assets/bootstrap-datetimepicker/css/datetimepicker.css" />
+    }
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Ürün Ekleme
+            </header>
+            <div class="panel-body">
+                <div class="form">
+                    <form class="cmxform form-horizontal tasi-form" id="commentForm" method="post" action="/Admin/AddProduct">
+                        <div class="form-group ">
+                            <label for="cname" class="control-label col-lg-2">Ürün Adı</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" id="cname" name="Adi" minlength="2" type="text" required />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="cemail" class="control-label col-lg-2">Aciklama</label>
+                            <div class="col-lg-10">
+                                <input class="form-control " id="cemail" type="text" name="Aciklama" required />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="curl" class="control-label col-lg-2">Alış Fiyatı</label>
+                            <div class="col-lg-10">
+                                <input class="form-control " id="curl" type="number" name="AlisFiyati" />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="ccomment" class="control-label col-lg-2">Satış Fiyatı</label>
+                            <div class="col-lg-10">
+                                <input class="form-control " id="curl" type="number" name="SatisFiyati" />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="ccomment" class="control-label col-lg-2">Kategoriler</label>
+                            <div class="col-lg-10">
+                                <select name="CategoryId" class="form-control m-bot15">
+                                    @foreach (var category in ViewBag.Categories)
+                                    {
+                                        <option value="@category.Id">@category.Adi</option>
+                                    }                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="ccomment" class="control-label col-lg-2">Markalar</label>
+                            <div class="col-lg-10">
+                                <select name="MarkId" class="form-control m-bot15">
+                                    @foreach (var mark in ViewBag.Marks)
+                                    {
+                                        <option value="@mark.Id">@mark.Adi</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="curl" class="control-label col-md-3">Son Kullanma Tarihi</label>
+                            <div class="col-md-4">
+                                <div data-date="2012-12-21T15:25:00Z" class="input-group date form_datetime-adv">
+                                    <input type="text" class="form-control" readonly="" size="16" name="SonKullanmaTarihi">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-danger date-reset"><i class="icon-remove"></i></button>
+                                        <button type="button" class="btn btn-warning date-set"><i class="icon-calendar"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success" type="submit">Kaydet</button>
+                                <a href="/Admin/Products" class="btn btn-danger">İptal</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section scripts{    
+<script type="text/javascript" src="/Content/Admin/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="/Content/Admin/js/advanced-form-components.js"></script>
+    }
+

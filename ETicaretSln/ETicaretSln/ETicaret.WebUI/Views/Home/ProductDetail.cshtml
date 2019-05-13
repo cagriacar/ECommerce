@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = Model.Adi;
+    Layout = "~/Views/Shared/SiteLayout.cshtml";
+}
+@model ETicaret.WebUI.Models.Product
+
+@section scripts{
+    <script src="~/Content/Zeon/js/jquery-1.10.0.min.js"></script>
+<script>
+    $(document).ready(function myfunction() {
+        $(".addtoCart").click(function myfunction() {
+            var pId = $(this).attr("name")
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/AddtoCart",
+                data: { id: pId },
+                success: function myfunction() {
+                    alert("Ürün sepete eklendi")
+                    $.ajax({
+                        type: "GET",
+                        url: "/Home/CartWidget",
+                        success: function myfunction(data) {
+                            $(".cart-all").html('');
+                            $(".cart-all").html(data);
+                        }
+                    })
+                },
+                error: function myfunction() {
+                    alert("Ürün sepete eklenemedi")
+                }
+            })
+        })
+    })
+</script>
+    }
+
+<div class="product-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="the-slider product-big-image" data-tesla-plugin="slider" data-tesla-item=".slide" data-tesla-next=".product-image-arrows-right" data-tesla-prev=".product-image-arrows-left" data-tesla-container=".slide-wrapper">
+                    <ul class="product-image-arrows">
+                        <li class="product-image-arrows-left"><i class="icon-517" title="left"></i></li>
+                        <li class="product-image-arrows-right"><i class="icon-501" title="right"></i></li>
+                    </ul>
+                    <ul class="slide-wrapper">
+                        @foreach (var item in Model.Photos)
+                        {
+                            <li class="slide"><img src="@item.BuyukYol" alt="ürün resmi" /></li>
+                        }
+                        
+                    </ul>
+                    <div class="row">
+                        <ul class="the-bullets-dots" data-tesla-plugin="bullets">
+                        @foreach (var item in Model.Photos)
+                        {
+                            <li><div class="col-md-2 col-xs-2"><img src="@item.BuyukYol" alt="ürün resmi" /></div></li>
+                        }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2>@Model.Adi</h2>
+                @*<div class="sort-dropdown">
+                    <span>Size <i class="icon-515" title="515"></i></span>
+                    <ul>
+                        <li><a href="#">XS</a></li>
+                        <li><a href="#">S</a></li>
+                        <li><a href="#">M</a></li>
+                        <li><a href="#">L</a></li>
+                        <li><a href="#">XL</a></li>
+                        <li><a href="#">XXL</a></li>
+                        <li><a href="#">XXXL</a></li>
+                    </ul>
+                </div>*@
+                <div class="clear"></div>
+                <div class="quantity">
+                    <input type="button" value="-" class="minus">
+                    <input type="number" step="1" min="1" name="Adet" value="1" title="Adet" class="input-text qty text">
+                    <input type="button" value="+" class="plus">
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="product-price">FİYAT : @Model.SatisFiyati.ToString("C2")</div>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="#" class="button-2 addtoCart" name="@Model.Id">Sepete Ekle</a>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#description" data-toggle="tab">Açıklama</a></li>                    
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="description">
+                        <p>@Model.Aciklama</p>
+                        <ul class="product-details">
+                            @foreach (ETicaret.WebUI.Models.ProductFeature feature in ViewBag.Features)
+                            {
+                                <li>@feature.FeatureType.Adi : @feature.FeatureValue.Adi</li>
+                            }                            
+                        </ul>
+                        <ul class="social-share">
+                            <li><span>Paylaş</span></li>
+                            <li><a href="#"><i class="icon-160" title="161"></i></a></li>
+                            <li><a href="#"><i class="icon-138" title="161"></i></a></li>
+                            <li><a href="#"><i class="icon-106" title="161"></i></a></li>
+                            <li><a href="#"><i class="icon-169" title="161"></i></a></li>
+                            <li><a href="#"><i class="icon-163" title="161"></i></a></li>
+                        </ul>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Anasayfa";
+    Layout = "~/Views/Shared/SiteLayout.cshtml";
+}
+
+
+
+@{
+    Html.RenderAction("SliderWidget", "Home");
+}     
+
+@{
+    Html.RenderAction("NewProductWidget", "Home");
+}
+
+@{
+    Html.RenderAction("ServiceWidget", "Home");
+}
+
+@{
+    Html.RenderAction("MarkWidget", "Home");
+}

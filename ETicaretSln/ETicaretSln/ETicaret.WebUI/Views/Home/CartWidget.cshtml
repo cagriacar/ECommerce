@@ -1,0 +1,70 @@
+﻿
+@model ETicaret.WebUI.App_Classes.Cart
+<script src="~/Content/Zeon/js/jquery-1.10.0.min.js"></script>
+<script>
+    $(document).ready(function myfunction() {
+        $(".removefromCart").click(function myfunction() {
+            var pId = $(this).attr("name")
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/RemovefromCart",
+                data: { id: pId },
+                success: function myfunction() {
+                    alert("Ürün sepetten silindi")
+                    $.ajax({
+                        type: "GET",
+                        url: "/Home/CartWidget",
+                        success: function myfunction(data) {
+                            $(".cart-all").html('');
+                            $(".cart-all").html(data);
+                        }
+                    })
+                },
+                error: function myfunction() {
+                    alert("Ürün sepete eklenemedi")
+                }
+            })
+        })
+    })
+</script>
+<div class="cart-all">
+    <i class="icon-19" title="19">
+        @if(Model != null)
+        {
+            @Model.ToplamTutar.ToString("C2")
+        }
+        else
+        {
+            <span>0 ₺</span>
+        }
+    </i>
+    <div class="inside-cart">
+        <p>
+            @if(Model != null)
+            {
+                <span>Sepette Toplam @Model.CartProducts.Sum(x=>x.Adet) Adet Ürün Bulunmaktadır.</span>
+            }
+            else
+            {
+                <span>Sepette Ürün Bulunmamaktadır.</span>
+            }
+        </p>
+        <ul>
+            @if(Model != null)
+            {
+                foreach (var item in Model.CartProducts)
+                {
+                    <li>
+                        <div class="inside-cart-image"><img src="@item.Product.Photos.FirstOrDefault(x => x.Varsayilan == true).OrtaYol" alt="product name" /></div>
+                        <button class="removefromCart" name="@item.Product.Id">x</button>
+                        <a href="/Home/ProductDetail/@item.Product.Id">@item.Product.Adi</a>
+                        <p>Tutar : @item.Tutar.ToString("C2")</p>
+                        <p>Adet : @item.Adet</p>
+                    </li>}
+            }
+            
+            
+        </ul>
+    </div>
+</div>

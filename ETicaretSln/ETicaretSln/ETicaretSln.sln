@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETicaret.WebUI", "ETicaret.WebUI\ETicaret.WebUI.csproj", "{FBBE732B-EF4A-4BA1-BC0E-FE8D4C718D39}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBBE732B-EF4A-4BA1-BC0E-FE8D4C718D39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBBE732B-EF4A-4BA1-BC0E-FE8D4C718D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBBE732B-EF4A-4BA1-BC0E-FE8D4C718D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBBE732B-EF4A-4BA1-BC0E-FE8D4C718D39}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

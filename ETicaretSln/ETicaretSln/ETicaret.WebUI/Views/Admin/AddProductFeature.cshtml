@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "AddProductFeature";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model IEnumerable<ETicaret.WebUI.Models.Product>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Ürün Özellik Ekleme
+            </header>
+            <div class="panel-body">
+                <div class="form">
+                    <form class="cmxform form-horizontal tasi-form" id="commentForm" method="post" action="/Admin/AddProductFeature">
+                        <div class="form-group ">
+                            <label for="ccomment" class="control-label col-lg-2">Ürün Adı</label>
+                            <div class="col-lg-10">
+                                <select id="product" name="ProductId" class="form-control m-bot15">
+                                    @foreach (var product in Model)
+                                    {
+                                        <option title="@product.CategoryId" value="@product.Id">@product.Adi</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div id="type">
+
+                        </div>
+                        <div id="value">
+
+                        </div>
+                        @*@{
+                            Html.RenderAction("ProductFeatureTypeWidget", "Admin");
+                            Html.RenderAction("ProductFeatureValueWidget", "Admin");
+                        }*@
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success" type="submit">Kaydet</button>
+                                <a href="/Admin/ProductFeatures" class="btn btn-danger">İptal</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function myfunction() {
+            $("#product").change(function myfunction() {
+                var id = $(this).val()
+                var catId = $(this).find("option:selected").attr("title")
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/ProductFeatureTypeWidget",
+                    data: { catId: catId },
+                    success: function myfunction(data) {
+                        $("#value").html('')
+                        $("#type").html('')
+                        $("#type").append(data)
+                    },
+                    error: function myfunction() {
+                        alert("error")
+                    }
+                })
+            })
+        })
+    </script>
+    }
+

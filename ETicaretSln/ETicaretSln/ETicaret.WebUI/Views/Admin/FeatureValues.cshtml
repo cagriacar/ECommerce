@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Özellik Değerleri";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model IEnumerable<ETicaret.WebUI.Models.FeatureValue>
+
+<section class="panel">
+    <header class="panel-heading">
+        Özellik Değerleri
+    </header>
+    <div class="panel-body">
+        <div class="adv-table editable-table ">
+            <div class="clearfix">
+                <div class="btn-group">
+                    <a href="/Admin/AddFeatureValue" style="margin-bottom:10px;" class="btn btn-success">
+                        Yeni Özellik Değeri <i class="icon-plus"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="space15"></div>
+            <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                <thead>
+                    <tr>
+                        <th>Özellik Değer Adı</th>
+                        <th>Açıklama</th>
+                        <th>Özellik Tipi</th>
+                        <th>Güncelle</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var featureValue in Model)
+                    {
+                        <tr class="">
+                            <td>@featureValue.Adi</td>
+                            <td>@featureValue.Aciklama</td>
+                            @if (featureValue.FeatureType != null)
+                            {
+                                <td>@featureValue.FeatureType.Adi</td>
+                            }
+                            <td><a class="btn btn-primary" href="/Admin/UpdateFeatureValue"><i class="icon-pencil"></i></a></td>
+                            <td><a class="btn btn-danger" href="/Admin/RemoveFeatureValue"><i class="icon-trash"></i></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+

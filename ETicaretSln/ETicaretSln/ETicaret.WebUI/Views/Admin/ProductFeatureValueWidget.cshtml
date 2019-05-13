@@ -1,0 +1,14 @@
+﻿
+@model IEnumerable<ETicaret.WebUI.Models.FeatureValue>
+
+<div class="form-group ">
+    <label for="ccomment" class="control-label col-lg-2">Özellik Değeri</label>
+    <div class="col-lg-10">
+        <select name="FeatureValueId" class="form-control m-bot15">
+            @foreach (var value in Model)
+            {
+                <option value="@value.Id">@value.Adi</option>
+            }
+        </select>
+    </div>
+</div>

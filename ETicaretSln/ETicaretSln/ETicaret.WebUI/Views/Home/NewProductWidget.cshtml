@@ -1,0 +1,74 @@
+﻿
+@model IEnumerable<ETicaret.WebUI.Models.Product>
+<script src="~/Content/Zeon/js/jquery-1.10.0.min.js"></script>
+<script>
+    $(document).ready(function myfunction() {
+        $(".addtoCart").click(function myfunction() {
+            var pId = $(this).attr("name")
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/AddtoCart",
+                data: { id: pId },
+                success: function myfunction() {
+                    alert("Ürün sepete eklendi")
+                    $.ajax({
+                        type: "GET",
+                        url: "/Home/CartWidget",
+                        success: function myfunction(data) {
+                            $(".cart-all").html('');
+                            $(".cart-all").html(data);
+                        }
+                    })
+                },
+                error: function myfunction() {
+                    alert("Ürün sepete eklenemedi")
+                }
+            })
+        })
+    })
+</script>
+
+<div class="box">
+    <div class="container">
+        <div class="tesla-carousel" data-tesla-plugin="carousel" data-tesla-container=".tesla-carousel-items" data-tesla-item=">div" data-tesla-autoplay="false" data-tesla-rotate="false">
+            <div class="site-title">
+                <ul class="wrapper-arrows">
+                    <li><i class="icon-517 prev" title="left arrow"></i></li>
+                    <li><i class="icon-501 next" title="right arrow"></i></li>
+                </ul>
+                <div class="site-inside"><span>Ürünler</span></div>
+            </div>
+                <div class="row">
+                    <div class="tesla-carousel-items">
+                    @foreach (var product in Model)
+                    {
+                        <div class="col-md-3 col-xs-6">
+                            <div class="product">
+                                <div class="product-cover">
+                                    <span class="product-action">
+                                        @*<span class="product-new">New</span>
+                                            <span class="product-sale">Sale</span>*@
+                                    </span>
+                                    <div class="product-cover-hover"><span><a href="/Home/ProductDetail/@product.Id">Görüntüle</a></span></div>
+                                    @if (product.Photos.Count > 0)
+                                    {
+                                        <img src="@product.Photos.FirstOrDefault(x=>x.Varsayilan == true).OrtaYol" alt="product name" />
+                                    }                                    
+                                </div>
+                                <div class="product-details">
+                                    <h1><a href="/Home/ProductDetail/@product.Id">@product.Adi</a></h1>
+                                    <p>@product.Aciklama</p>
+                                    <div class="product-price">
+                                        <a href="#" name="@product.Id" class="addtoCart"><i class="icon-257" title="Sepete ekle"></i></a>
+                                        @product.SatisFiyati
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    </div>
+                </div>            
+        </div>
+    </div>
+</div>

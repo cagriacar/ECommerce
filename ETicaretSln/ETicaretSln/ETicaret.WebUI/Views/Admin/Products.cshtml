@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Ürünler";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@model IEnumerable<ETicaret.WebUI.Models.Product>
+
+
+<section class="panel">
+    <header class="panel-heading">
+        Ürünler
+    </header>
+    <div class="panel-body">
+        <div class="adv-table editable-table ">
+            <div class="clearfix">
+                <div class="btn-group">
+                    <a href="/Admin/AddProduct" style="margin-bottom:10px;" class="btn btn-success">
+                        Yeni Ürün <i class="icon-plus"></i>
+                    </a>
+                </div>
+                @*<div class="btn-group pull-right">
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        Tools <i class="icon-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="#">Print</a></li>
+                        <li><a href="#">Save as PDF</a></li>
+                        <li><a href="#">Export to Excel</a></li>
+                    </ul>
+                </div>*@
+            </div>
+            <div class="space15"></div>
+            <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                <thead>
+                    <tr>
+                        <th>Ürün Adı</th>
+                        <th>Açıklama</th>
+                        <th>Alış Fiyat</th>
+                        <th>Satış Fiyat</th>
+                        <th>Kategori</th>
+                        <th>Ekleme Tarihi</th>
+                        <th>Marka</th>
+                        <th>Resim Ekle</th>
+                        <th>Güncelle</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr class="">
+                            <td>@product.Adi</td>
+                            <td>@product.Aciklama</td>
+                            <td>@product.AlisFiyati</td>
+                            <td>@product.SatisFiyati</td>
+                            <td>@product.Category.Adi</td>
+                            <td>@product.EklenmeTarihi</td>
+                            <td>@product.Mark.Adi</td>
+                            <td><a class="btn btn-success" href="/Admin/AddProductPhoto/@product.Id"><i class="icon-plus"></i></a></td>
+                            <td><a class="btn btn-primary" href="/Admin/UpdateProduct"><i class="icon-pencil"></i></a></td>
+                            <td><a class="btn btn-danger" href="/Admin/RemoveProduct"><i class="icon-trash"></i></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

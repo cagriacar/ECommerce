@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "Shops";
+    Layout = "~/Views/Shared/SiteLayout.cshtml";
+}
+@using ETicaret.WebUI.Models;
+@model List<ETicaret.WebUI.Models.Product>
+
+@section scripts{
+    <script src="~/Content/Zeon/js/jquery-1.10.0.min.js"></script>
+    <script>
+    $(document).ready(function myfunction() {
+        $(".addtoCart").click(function myfunction() {
+            var pId = $(this).attr("name")
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/AddtoCart",
+                data: { id: pId },
+                success: function myfunction() {
+                    alert("Ürün sepete eklendi")
+                    $.ajax({
+                        type: "GET",
+                        url: "/Home/CartWidget",
+                        success: function myfunction(data) {
+                            $(".cart-all").html('');
+                            $(".cart-all").html(data);
+                        }
+                    })
+                },
+                error: function myfunction() {
+                    alert("Ürün sepete eklenemedi")
+                }
+            })
+        })
+    })
+    </script>
+    <script>
+        $(document).ready(function myfunction() {
+            $(".filter").click(function myfunction() {
+                var cId = $(this).attr("name")
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/ShopProductWidget",
+                    data: { catId: cId },
+                    success: function myfunction(data) {
+                        //alert(data)
+                        $(".col-md-9").html('');
+                        $(".col-md-9").html(data);
+                        
+                    },
+                    error: function myfunction() {
+                        alert("error")
+                    }
+                })
+            })
+        })
+    </script>
+}
+<div class="container">
+    <div class="all-products-details">
+        <div class="row">
+            <div class="col-md-7"><h2>Categories</h2><span class="products-avalabile">Showing all  products</span></div>
+            <div class="col-md-5">
+                <div class="sort-dropdown float-right">
+                    <span>Deafult sorting <i class="icon-515" title="515"></i></span>
+                    <ul>
+                        <li><a href="#">Cost low to high</a></li>
+                        <li><a href="#">Cost hight to low</a></li>
+                        <li><a href="#">Sales low to high</a></li>
+                        <li><a href="#">Sales high to low</a></li>
+                        <li><a href="#">Top low to high</a></li>
+                        <li><a href="#">Top high to low</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12 col-xs-6">
+                    <div class="products-dropdown open-dropdown">
+                        <span><i class="icon-515" title="515"></i>Kategoriler</span>
+                        <ul>
+                            @foreach (Category category in ViewBag.Categories)
+                            {
+                                <li><a href="#" class="filter" name="@category.Id">@category.Adi</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="col-md-12 col-xs-6">
+                    <div class="products-dropdown">
+                        <span>Markalar</span>
+                        <ul>
+                            @foreach (Mark mark in ViewBag.Marks)
+                            {
+                                <li><a href="#">@mark.Adi</a></li>
+                            }
+                        </ul>
+                        <div class="products-dropdown-close">Clear <i class="icon-456" title="close"></i></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+        <div class="col-md-9">
+            
+            @{
+                Html.RenderAction("ShopProductWidget", "Home");
+            }
+
+            <ul class="page-numbers">
+                <li><span class="page-numbers current">1</span> /</li>
+                <li><a class="page-numbers" href="#">2</a> /</li>
+                <li><a class="page-numbers" href="#">3</a> /</li>
+                <li><a class="page-numbers" href="#">4</a> /</li>
+                <li><a class="page-numbers" href="#">5</a> /</li>
+                <li><a class="next page-numbers" href="#">→</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+

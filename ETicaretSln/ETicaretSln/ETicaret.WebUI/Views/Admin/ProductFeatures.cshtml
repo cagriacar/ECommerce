@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Ürün Özellikleri";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model IEnumerable<ETicaret.WebUI.Models.ProductFeature>
+
+<section class="panel">
+    <header class="panel-heading">
+        Ürün Özellikleri
+    </header>
+    <div class="panel-body">
+        <div class="adv-table editable-table ">
+            <div class="clearfix">
+                <div class="btn-group">
+                    <a href="/Admin/AddProductFeature" style="margin-bottom:10px;" class="btn btn-success">
+                        Yeni Ürün Özellik <i class="icon-plus"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="space15"></div>
+            <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                <thead>
+                    <tr>
+                        <th>Ürün Adı</th>
+                        <th>Özellik Tipi</th>
+                        <th>Özellik Değer Adı</th>
+                        <th>Güncelle</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var feature in Model)
+                    {
+                        <tr class="">
+                            @if (feature.Product != null)
+                            {
+                                <td>@feature.Product.Adi</td>
+                            }
+                            @if (feature.FeatureType != null)
+                            {
+                                <td>@feature.FeatureType.Adi</td>
+                            }
+                            @if (feature.FeatureValue != null)
+                            {
+                                <td>@feature.FeatureValue.Adi</td>
+                            }                            
+                            <td><a class="btn btn-primary" href="/Admin/UpdateProductFeature"><i class="icon-pencil"></i></a></td>
+                            <td><a class="btn btn-danger" href='@Url.Action("RemoveProductFeature","Admin", new { productId = feature.ProductId, typeId = feature.FeatureTypeId, valueId = feature.FeatureValueId})'><i class="icon-trash"></i></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+

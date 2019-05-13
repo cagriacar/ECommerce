@@ -1,0 +1,34 @@
+﻿
+@model List<ETicaret.WebUI.Models.Product>
+@using ETicaret.WebUI.Models;
+
+
+    <div class="row">
+    @foreach (Product product in Model)
+    {
+        <div class="col-md-4 col-xs-6">
+            <div class="product">
+                <div class="product-cover">
+                    <div class="product-cover-hover"><span><a href="/Home/ProductDetail/@product.Id">Görüntüle</a></span></div>
+                    <img src="@product.Photos.FirstOrDefault(x=>x.Varsayilan == true).OrtaYol" alt="product name" />
+                </div>
+                <div class="product-details">
+                    <h1><a href="#">@product.Adi</a></h1>
+                    <p>@product.Aciklama</p>
+                    <div class="product-price">
+                        <a href="#" name="@product.Id" class="addtoCart">
+                            <i class="icon-257" title="add to cart"></i>
+                        </a>
+                        @product.SatisFiyati.ToString("C2")
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+
+
